@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <center><h1>CorpoQuest</h1></center>
+    Position Y: {{ user.positionY }}<br>
+    Position X: {{ user.positionX }}<br>
+    Position ID: {{ user.positionId }}<br>
+    Move: {{ user.move }}<br>
+    Equipment: {% if user.equipment|length %}
+        {{ user.equipment|join(',') }}
+    {% else %}
+        Your bag is empty.
+    {% endif %}
+
+    <hr>
+    {% if field %}
+        ID: {{ field.id }} <br>
+        Description: {{ field.description }}<br>
+        Items: {{ field.items|join(',') }}<br>
+        Obstacles: {{ field.obstacles }}
+    {% endif %} 
+    <hr>
+    <table>
+      <tr>
+        <td style="float:right">/</td>
+        <td><a href="{{ path('go',{'id':app.session.get('position.id')+1}) }}">NORTH</a><br></td>
+        <td>\</td>
+      </tr>
+      <tr>
+        <td><a href="{{ path('go',{'id':app.session.get('position.id')-10}) }}">WEST</a><br></td>
+        <td>...</td>
+        <td><a href="{{ path('go',{'id':app.session.get('position.id')+10}) }}">EAST</a><br></td>
+      </tr>
+      <tr>
+        <td style="float:right">\</td>
+        <td><a href="{{ path('go',{'id':app.session.get('position.id')-1}) }}">SOUTH</a><br></td>
+        <td>/</td>
+      </tr>
+    </table> 
+{% endblock %}
